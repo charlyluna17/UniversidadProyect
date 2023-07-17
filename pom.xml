@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.owndeveloper</groupId>
-    <artifactId>universidad-poryect</artifactId>
+    <artifactId>universidad-proyect</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>universidad-poryect</name>
     <description>universidad-poryect</description>

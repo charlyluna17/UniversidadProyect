@@ -1,17 +1,40 @@
-package org.owndeveloper.universidadporyect.models;
+package org.owndeveloper.universidadproyect.models;
+
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
+@Table(name = "personas")
 public abstract class Persona implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(nullable = false, length = 60)
     private String nombre;
+
+    @Column(nullable = false, length = 60)
     private String apellido;
+
+    @Column(nullable = false, unique = true,  length = 60)
     private String dni;
+
+    @Column(name = "fecha_alta")
     private LocalDate fechaAlta;
+
+    @Column(name = "fecha_modificacion")
     private LocalDate fechaModificacion;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "codigoPostal", column = @Column(name = "codigo_postal")),
+            @AttributeOverride(name = "dpto", column = @Column(name = "codigo_postal"))
+            })
+
     private Direccion direccion;
 
     public Persona() {
@@ -81,6 +104,16 @@ public abstract class Persona implements Serializable {
 
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
+    }
+
+    @PrePersist
+    private void antesdePersistir(){
+        this.fechaAlta=LocalDate.now();
+    }
+
+    @PreUpdate
+    private void antesdeUpdate(){
+        this.fechaModificacion=LocalDate.now();
     }
 
     @Override

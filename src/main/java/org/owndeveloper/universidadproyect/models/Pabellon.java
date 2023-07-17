@@ -1,4 +1,4 @@
-package org.owndeveloper.universidadporyect.models;
+package org.owndeveloper.universidadproyect.models;
 
 import jakarta.persistence.*;
 

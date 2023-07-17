@@ -1,4 +1,4 @@
-package org.owndeveloper.universidadporyect.models.enums;
+package org.owndeveloper.universidadproyect.models.enums;
 
 public enum Pizarron {
 

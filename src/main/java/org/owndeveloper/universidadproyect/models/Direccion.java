@@ -1,4 +1,4 @@
-package org.owndeveloper.universidadporyect.models;
+package org.owndeveloper.universidadproyect.models;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Table;
@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import java.io.Serializable;
 
 @Embeddable
-@Table(name = "")
+@Table(name = "direcciones")
 public class Direccion implements Serializable {
 
     private String calle;

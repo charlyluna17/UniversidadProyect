@@ -1,9 +1,9 @@
-package org.owndeveloper.universidadporyect.models;
+package org.owndeveloper.universidadproyect.models;
 
 
 
 import jakarta.persistence.*;
-import org.owndeveloper.universidadporyect.models.enums.Pizarron;
+import org.owndeveloper.universidadproyect.models.enums.Pizarron;
 
 import java.io.Serializable;
 import java.time.LocalDate;

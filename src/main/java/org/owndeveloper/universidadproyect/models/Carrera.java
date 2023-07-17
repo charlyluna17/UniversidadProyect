@@ -1,9 +1,10 @@
-package org.owndeveloper.universidadporyect.models;
+package org.owndeveloper.universidadproyect.models;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "carreras")
@@ -21,6 +22,19 @@ public class Carrera implements Serializable {
     private LocalDate fechaAlta;
     @Column(name = "fecha_modificacion")
     private LocalDate fechaModificacion;
+
+    @OneToMany(
+            mappedBy = "carrera",
+            fetch = FetchType.LAZY
+    )
+
+    private Set<Alumno> alumnos;
+
+    @ManyToMany(
+            mappedBy = "carreras",
+            fetch = FetchType.LAZY
+    )
+    private Set<Profesor> profesores;
 
     public Carrera() {
     }
@@ -89,6 +103,22 @@ public class Carrera implements Serializable {
     @PreUpdate
     private void antesdeUpdate(){
         this.fechaModificacion=LocalDate.now();
+    }
+
+    public Set<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(Set<Alumno> alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public Set<Profesor> getProfesores() {
+        return profesores;
+    }
+
+    public void setProfesores(Set<Profesor> profesores) {
+        this.profesores = profesores;
     }
 
     @Override
