@@ -5,48 +5,38 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-
 @Entity
-@Table(name = "personas")
+@Table(name ="personas")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Persona implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false,length = 60)
     private String nombre;
-
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false,length = 60)
     private String apellido;
-
-    @Column(nullable = false, unique = true,  length = 60)
+    @Column(nullable = false,unique = true,length = 10)
     private String dni;
-
     @Column(name = "fecha_alta")
     private LocalDate fechaAlta;
-
     @Column(name = "fecha_modificacion")
     private LocalDate fechaModificacion;
-
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "codigoPostal", column = @Column(name = "codigo_postal")),
-            @AttributeOverride(name = "dpto", column = @Column(name = "codigo_postal"))
-            })
-
+            @AttributeOverride(name="codigoPostal", column = @Column(name = "codigo_postal")),
+            @AttributeOverride(name="dpto", column = @Column(name = "departamento"))
+    })
     private Direccion direccion;
 
     public Persona() {
     }
 
-    public Persona(Integer id, String nombre, String apellido, String dni, LocalDate fechaAlta, LocalDate fechaModificacion, Direccion direccion) {
+    public Persona(Integer id, String nombre, String apellido, String dni,  Direccion direccion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        this.fechaAlta = fechaAlta;
-        this.fechaModificacion = fechaModificacion;
         this.direccion = direccion;
     }
 
@@ -105,17 +95,14 @@ public abstract class Persona implements Serializable {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
-
     @PrePersist
     private void antesdePersistir(){
         this.fechaAlta=LocalDate.now();
     }
-
     @PreUpdate
     private void antesdeUpdate(){
         this.fechaModificacion=LocalDate.now();
     }
-
     @Override
     public String toString() {
         return "Persona{" +
