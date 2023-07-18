@@ -1,22 +1,20 @@
 package org.owndeveloper.universidadproyect.models;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Table;
 
 import java.io.Serializable;
-
 @Embeddable
-@Table(name = "direcciones")
 public class Direccion implements Serializable {
 
     private String calle;
     private String numero;
     private String codigoPostal;
     private String depto;
-    private String piso;
+    private  String piso;
     private String localidad;
 
     public Direccion() {
+
     }
 
     public Direccion(String calle, String numero, String codigoPostal, String depto, String piso, String localidad) {
@@ -87,6 +85,4 @@ public class Direccion implements Serializable {
                 ", localidad='" + localidad + '\'' +
                 '}';
     }
-
-
 }

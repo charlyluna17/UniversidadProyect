@@ -12,36 +12,36 @@ import java.util.Set;
 public class Pabellon implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private  Integer id;
     @Column(name = "metros_cuadrados")
-    private double mts2;
+    private Double mts2;
     @Column(name = "nombre_pabellon", unique = true, nullable = false)
     private String nombre;
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "codigoPostal", column =  @Column(name = "codigo_postal")),
-            @AttributeOverride(name = "dpto", column =  @Column(name = "codigo_postal"))
+            @AttributeOverride(name="codigoPostal", column = @Column(name = "codigo_postal")),
+            @AttributeOverride(name="dpto", column = @Column(name = "departamento"))
     })
     @Column(name = "fecha_alta")
     private LocalDate fechaAlta;
     @Column(name = "fecha_modificacion")
-    private LocalDate fechaMoficacion;
-
+    private LocalDate fechaModificacion;
     @OneToMany(
             mappedBy = "pabellon",
             fetch = FetchType.LAZY
     )
 
     private Set<Aula> aulas;
+
     public Pabellon() {
     }
 
-    public Pabellon(Integer id, String nombre, double mts2, LocalDate fechaAlta, LocalDate fechaMoficacion) {
+    public Pabellon(Integer id, Double mts2, String nombre, LocalDate fechaAlta, LocalDate fechaUltimaModificacion) {
         this.id = id;
-        this.nombre = nombre;
         this.mts2 = mts2;
+        this.nombre = nombre;
         this.fechaAlta = fechaAlta;
-        this.fechaMoficacion = fechaMoficacion;
+        this.fechaModificacion = fechaUltimaModificacion;
     }
 
     public Integer getId() {
@@ -52,20 +52,20 @@ public class Pabellon implements Serializable {
         this.id = id;
     }
 
+    public Double getMts2() {
+        return mts2;
+    }
+
+    public void setMts2(Double mts2) {
+        this.mts2 = mts2;
+    }
+
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public double getMts2() {
-        return mts2;
-    }
-
-    public void setMts2(double mts2) {
-        this.mts2 = mts2;
     }
 
     public LocalDate getFechaAlta() {
@@ -76,12 +76,12 @@ public class Pabellon implements Serializable {
         this.fechaAlta = fechaAlta;
     }
 
-    public LocalDate getFechaMoficacion() {
-        return fechaMoficacion;
+    public LocalDate getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setFechaMoficacion(LocalDate fechaMoficacion) {
-        this.fechaMoficacion = fechaMoficacion;
+    public void setFechaModificacion(LocalDate fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
 
     public Set<Aula> getAulas() {
@@ -91,25 +91,23 @@ public class Pabellon implements Serializable {
     public void setAulas(Set<Aula> aulas) {
         this.aulas = aulas;
     }
-
     @PrePersist
     private void antesdePersistir(){
         this.fechaAlta=LocalDate.now();
     }
-
     @PreUpdate
     private void antesdeUpdate(){
-        this.fechaMoficacion=LocalDate.now();
+        this.fechaModificacion=LocalDate.now();
     }
 
     @Override
     public String toString() {
         return "Pabellon{" +
                 "id=" + id +
-                ", nombre='" + nombre + '\'' +
                 ", mts2=" + mts2 +
+                ", nombre='" + nombre + '\'' +
                 ", fechaAlta=" + fechaAlta +
-                ", fechaUltimaMoficacion=" + fechaMoficacion +
+                ", fechaUltimaModificacion=" + fechaModificacion +
                 '}';
     }
 

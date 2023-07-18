@@ -2,8 +2,10 @@ package org.owndeveloper.universidadproyect.models;
 
 import jakarta.persistence.*;
 
+
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -12,7 +14,7 @@ public class Carrera implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false, unique = true, length = 80)
+    @Column(nullable = false,unique = true,length = 80)
     private String nombre;
     @Column(name = "cantidad_materias")
     private Integer cantidadMaterias;
@@ -22,14 +24,11 @@ public class Carrera implements Serializable {
     private LocalDate fechaAlta;
     @Column(name = "fecha_modificacion")
     private LocalDate fechaModificacion;
-
     @OneToMany(
             mappedBy = "carrera",
             fetch = FetchType.LAZY
     )
-
     private Set<Alumno> alumnos;
-
     @ManyToMany(
             mappedBy = "carreras",
             fetch = FetchType.LAZY
@@ -44,7 +43,6 @@ public class Carrera implements Serializable {
         this.nombre = nombre;
         this.cantidadMaterias = cantidadMaterias;
         this.cantidadAnios = cantidadAnios;
-
     }
 
     public Integer getId() {
@@ -91,20 +89,6 @@ public class Carrera implements Serializable {
         return fechaModificacion;
     }
 
-    public void setFechaModificacion(LocalDate fechaMoficacion) {
-        this.fechaModificacion = fechaMoficacion;
-    }
-
-    @PrePersist
-    private void antesdePersistir(){
-        this.fechaAlta=LocalDate.now();
-    }
-
-    @PreUpdate
-    private void antesdeUpdate(){
-        this.fechaModificacion=LocalDate.now();
-    }
-
     public Set<Alumno> getAlumnos() {
         return alumnos;
     }
@@ -121,6 +105,17 @@ public class Carrera implements Serializable {
         this.profesores = profesores;
     }
 
+    public void setFechaModificacion(LocalDate fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+    @PrePersist
+    private void antesdePersistir(){
+        this.fechaAlta=LocalDate.now();
+    }
+    @PreUpdate
+    private void antesdeUpdate(){
+        this.fechaModificacion=LocalDate.now();
+    }
     @Override
     public String toString() {
         return "Carrera{" +
@@ -129,7 +124,22 @@ public class Carrera implements Serializable {
                 ", cantidadMaterias=" + cantidadMaterias +
                 ", cantidadAnios=" + cantidadAnios +
                 ", fechaAlta=" + fechaAlta +
-                ", fechaMoficacion=" + fechaModificacion +
+                ", fechaModificacion=" + fechaModificacion +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Carrera carrera = (Carrera) o;
+        return Objects.equals(id, carrera.id) && Objects.equals(nombre, carrera.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre);
+    }
 }
+
+
