@@ -23,6 +23,14 @@ public class AlumnoDAOImpl extends PersonaDAOImpl
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Iterable<Persona> buscarAlumnosPorNombreCarrera(String nombre) {
+        return repository.buscarPersonaPorApellido(nombre);
+    }
+
+
+
+    /*@Override
     public Iterable<Aula> findAulasByPizarron(Pizarron pizarron) {
         return null;
     }
@@ -35,5 +43,5 @@ public class AlumnoDAOImpl extends PersonaDAOImpl
     @Override
     public Optional<Aula> findAulasByNroAula(Integer nroAula) {
         return Optional.empty();
-    }
+    }*/
 }

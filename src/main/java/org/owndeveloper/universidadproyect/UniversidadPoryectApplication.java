@@ -25,20 +25,4 @@ public class UniversidadPoryectApplication {
 //            System.out.println("beans "+num+" "+str);
 //        }
     }
-    @Bean
-    public CommandLineRunner runner(){
-        return args -> {
-//            Direccion direccion = new Direccion("calle circunvalacion","123"
-//                    ,"1263","","","San Sebastian");
-//
-//            Persona alumno = new Alumno(null,"Frank","Lopez","01234567",direccion);
-//            Persona persona = service.save(alumno);
-//            System.out.println(persona.toString());
-//            List<Persona> alumnos =(List<Persona>) service.findAll();
-//            alumnos.forEach(System.out::println);
-
-
-        };
-    }
-
 }
